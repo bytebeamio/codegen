@@ -1,7 +1,8 @@
-use std::fmt::{self, Write};
+use std::fmt::{self, Debug, Write};
 
 use crate::body::Body;
 use crate::formatter::Formatter;
+use crate::Variable;
 
 /// Defines a code block. This is used to define a function body.
 #[derive(Debug, Clone)]
@@ -9,6 +10,7 @@ pub struct Block {
     before: Option<String>,
     after: Option<String>,
     body: Vec<Body>,
+    variables: Vec<Variable>,
 }
 
 impl Block {
@@ -18,6 +20,7 @@ impl Block {
             before: Some(before.to_string()),
             after: None,
             body: vec![],
+            variables: vec![],
         }
     }
 
@@ -33,6 +36,12 @@ impl Block {
     /// Push a nested block to this block.
     pub fn push_block(&mut self, block: Block) -> &mut Self {
         self.body.push(Body::Block(block));
+        self
+    }
+
+    /// Push variable initialization into block
+    pub fn push_var(&mut self, var: Variable) -> &mut Self {
+        self.variables.push(var);
         self
     }
 
@@ -61,6 +70,13 @@ impl Block {
                 b.fmt(fmt)?;
             }
 
+            Ok(())
+        })?;
+
+        fmt.indent(|fmt| {
+            for variable in self.variables.iter() {
+                variable.fmt(fmt)?;
+            }
             Ok(())
         })?;
 

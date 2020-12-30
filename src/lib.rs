@@ -43,11 +43,11 @@ mod variant;
 
 mod r#enum;
 mod r#impl;
+mod r#match;
 mod r#struct;
 mod r#trait;
 mod r#type;
-mod r#match;
-
+mod variable;
 
 pub use associated_type::*;
 pub use block::*;
@@ -56,11 +56,12 @@ pub use formatter::*;
 pub use function::*;
 pub use import::*;
 pub use module::*;
-pub use scope::*;
-pub use variant::*;
 pub use r#enum::*;
 pub use r#impl::*;
+pub use r#match::*;
 pub use r#struct::*;
 pub use r#trait::*;
 pub use r#type::*;
-pub use r#match::*;
+pub use scope::*;
+pub use variable::*;
+pub use variant::*;
