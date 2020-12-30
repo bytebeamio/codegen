@@ -5,6 +5,7 @@ use crate::r#enum::Enum;
 use crate::r#impl::Impl;
 use crate::r#struct::Struct;
 use crate::r#trait::Trait;
+use crate::r#match::Match;
 
 #[derive(Debug, Clone)]
 pub enum Item {
@@ -14,5 +15,6 @@ pub enum Item {
     Trait(Trait),
     Enum(Enum),
     Impl(Impl),
+    Match(Match),
     Raw(String),
 }

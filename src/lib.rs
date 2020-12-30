@@ -46,6 +46,7 @@ mod r#impl;
 mod r#struct;
 mod r#trait;
 mod r#type;
+mod r#match;
 
 
 pub use associated_type::*;
@@ -57,9 +58,9 @@ pub use import::*;
 pub use module::*;
 pub use scope::*;
 pub use variant::*;
-
 pub use r#enum::*;
 pub use r#impl::*;
 pub use r#struct::*;
 pub use r#trait::*;
 pub use r#type::*;
+pub use r#match::*;

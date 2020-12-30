@@ -13,6 +13,7 @@ use crate::r#enum::Enum;
 use crate::r#impl::Impl;
 use crate::r#struct::Struct;
 use crate::r#trait::Trait;
+use crate::Match;
 
 /// Defines a scope.
 ///
@@ -211,6 +212,16 @@ impl Scope {
         self
     }
 
+    /// Push a new match block
+    pub fn new_match(&mut self, target: &str) -> &mut Match {
+        self.items.push(Item::Match(Match::new(target)));
+
+        match *self.items.last_mut().unwrap() {
+            Item::Match(ref mut v) => v,
+            _ => unreachable!(),
+        }
+    }
+
     /// Push a raw string to the scope.
     ///
     /// This string will be included verbatim in the formatted string.
@@ -253,6 +264,7 @@ impl Scope {
                 Item::Trait(ref v) => v.fmt(fmt)?,
                 Item::Enum(ref v) => v.fmt(fmt)?,
                 Item::Impl(ref v) => v.fmt(fmt)?,
+                Item::Match(ref v) => v.fmt(fmt)?,
                 Item::Raw(ref v) => {
                     write!(fmt, "{}\n", v)?;
                 }
